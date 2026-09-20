@@ -75,6 +75,9 @@ CWP-Entry는 전기차 배터리 스왑뿐만 아니라 **철도 차량, 터널 
 * **도면 3 (FIG. 3):** CWP-Entry [SHUTTLE] 타입 평면도 (8센티미터 팔레트, 4점 공압 에어리프트 방식)
 * **도면 4 (FIG. 4):** CWP-Entry [FREE] 타입 평면도 (내장 팔레트, 결합 단일 모터, 2단 토크 센서, 복합 레이저 가이드 방식)
 
+[CWP-Entry-BOX-TYPE-UNIFIED-DEFENSIVE-PUBLICATION.pdf](https://github.com/user-attachments/files/32428605/CWP-Entry-BOX-TYPE-UNIFIED-DEFENSIVE-PUBLICATION.pdf)
+
+
 * **도면 비고:** 본 도면의 모든 치수, 각도, 수량은 범위를 한정하지 않는 예시이다. 기능적 구조(레일/홈 가이드, 레이저 유도, 이송 연동, 대형 모빌리티 확장성)만이 본 공개의 핵심이다.
 
 ---
