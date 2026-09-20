@@ -1,4 +1,9 @@
-> **다국어 공개 안내:** 본 문서는 동일 내용의 한/영 이중 공개 문서입니다. v3.4 2026-09-13 (영문 버전: [README.md](README.md))  
+
+<img width="4000" height="8238" alt="CWP-Entry_BOX_TYPE_PREVIEW_4K" src="https://github.com/user-attachments/assets/b1003f07-ba00-408d-96b0-d0667c3fd0d4" />
+
+[CWP-Entry-BOX-TYPE-UNIFIED-DEFENSIVE-PUBLICATION.pdf](https://github.com/user-attachments/files/32428605/CWP-Entry-BOX-TYPE-UNIFIED-DEFENSIVE-PUBLICATION.pdf)
+
+> **다국어 공개 안내:** 본 문서는 동일 내용의 한/영 이중 공개 문서입니다. v3.4 2026-09-13 (영문 버전: [README_EN.md](README_EN.md))  
 > **Original Authority Notice:** 본 기술 명세의 법적·공학적 판단 최상위 기준은 한글 원본(`README.ko.md`)에 귀속되며, 영문본은 보조 참조용으로만 기능한다. (PHILOSOPHY.ko.md is authoritative original)
 
 # CWP-Entry v3.4 - 진입 유도 및 위치 정렬 시스템 (범용 궤도·무레일 모빌리티 통합 확장판)
@@ -12,22 +17,27 @@
 
 ---
 
-## 0. 설계자 독자 아키텍처 및 선행기술 공개 선언
+## 0. 설계자 독자 아키텍처 및 선행기술 공개 선언 (Designer's Philosophical Declaration)
 
-1. **설계 철학 및 기술 조합의 독자성:**  
-   본 시스템은 기존 고가 전용 로봇 인프라의 경제적 한계 극복, 현장 숙련 엔지니어의 기존 기술 능력 연계 및 활용, 다양한 현장 환경(야외 노지, 정전, 철도·터널 등 밀폐 공간) 대입을 통한 저충격 도킹 및 0.1밀리초 하드웨어 인터셉트(0.1ms HW Intercept) 기반 페일세이프 유도를 지향하는 **설계자(deundeuni)의 독자적 철학과 문제 의식**에서 출발하였다. '세차장·철도·터널 레일 공용기술의 통합 원용 + 진입 유도 정렬 시스템'의 방향성을 정립하고 최적의 파라미터 규격을 선택·조합한 아키텍처 결정권은 설계자 자연인에게 있다.
+1. **설계 철학 및 공지기술의 응용적 독자성 (Architectural Conception & Prior Art Respect):**  
+   본 시스템은 공지된 세차장·철도 V/U레일 체인 이송 메커니즘, 롤러 가이드 및 광학/라인 레이저 위치 정렬 선행기술을 기초로 한다. 본 백서는 기존 고가 전용 로봇 인프라의 경제적 한계를 극복하고, 현장 숙련 엔지니어의 기존 기술 능력을 연계하며, 다양한 열악한 현장 환경(야외 노지, 정전, 철도·터널 등 밀폐 공간)에서도 저충격 도킹 및 0.1밀리초 하드웨어 인터셉트(0.1ms HW Intercept) 기반 페일세이프 유도를 달성하고자 하는 **설계자(deundeuni)의 독자적 철학과 문제 의식**에서 출발하였다. '세차장·철도·터널 레일 공용기술의 통합 원용 + 진입 유도 정렬 시스템'의 방향성을 정립하고 최적의 파라미터 규격을 선택·조합한 아키텍처 결정권은 설계자 자연인에게 귀속된다. 본 시스템은 기존 이송·정렬 인프라 기술을 개척한 선행 연구자 및 특허권자들의 공학적 성과를 존중하며, 공지 원리를 구체적 실시예 파라미터 조합으로 응용 개시함을 명시한다.
 
-2. **인간 설계자와 소프트웨어 유틸리티의 역할 분담 고지:**  
+2. **인간 설계자와 소프트웨어 유틸리티의 역할 분담 고지 (Software Utility Limitation):**  
    * **시스템 설계자(deundeuni):** 전체 시스템의 구상, 아키텍처 구조 설계, 핵심 요구사항 및 연계 방향성 정의 담당 (구상 및 구조 설계).
    * **소프트웨어 및 AI 유틸리티:** 설계자가 제공한 구상과 설계 방향을 바탕으로 초안 작성, 문서 정리, 기술적 표현 정제, 형식화 및 검토를 수행한 **수동적 실행 유틸리티(Passive Execution Utility)** 역할에 한함. (독자적인 발명 주체성이나 설계 권한은 없음)  
    본 인프라의 모든 설계 의도, 구조적 결합권, 선행기술 공개 권한은 전적으로 설계자에게 귀속된다.
 
 ---
 
-## 1. 개요
+## 1. 개요 및 적용 범위
+
+### 1.1 개요
 CWP-Entry는 전기차 배터리 스왑뿐만 아니라 **철도 차량, 터널 내 대형 모빌리티, 물류 궤도 시스템 및 무레일(Railless) 지면 가이드 환경** 전반의 진입 유도 및 위치 정렬을 위한 범용 시스템이다.  
 **기존의 상부 구조물 중심 하강식 및 대형 차량 리프트 방식과 달리, 하부 V/U레일 및 가이드 홈 기반 상승 도킹 방식을 채택하여 기존 바닥의 대형 굴착 공사 없이 인프라 구현을 지향한다.**  
 가이드(Guide) -> 진입(Entry) -> V홈 정렬(V-Home)의 3단계 정렬, 상부 라인 레이저와 하부 레일/가이드 홈 통합 결합을 통해 다중 모빌리티 하중 조건에서도 ±2밀리미터 수준의 정밀 정렬 유도를 도모하도록 구성된다.
+
+### 1.2 적용 범위 (Application Scope)
+본 구조는 승용 EV 배터리 교환에 한정되지 않으며, 철도 전동차·기관차 대차 정렬, 지하 터널 특수 이송체, 도심항공교통(UAM) landing skid, 물류 무인운반차(AGV/AMR), 농기계, 드론 및 노지 중량 모듈 페이로드의 물리적 진입 오차 완화 및 정밀 도킹 유속 정렬에 범용으로 적용 가능하다.
 
 ---
 
@@ -39,18 +49,18 @@ CWP-Entry는 전기차 배터리 스왑뿐만 아니라 **철도 차량, 터널 
 
 ---
 
-## 3. 한계, 보증 부인 및 면책
+## 3. 한계, 보증 부인 및 면책 (Limitation, Disclaimer of Warranties & Liability)
 
-본 문서는 방어적 공개를 위한 기술적 개념 개시이며, 어떠한 보증도 없이 있는 그대로(AS-IS) 제공된다.
+본 문서는 선행기술 개시 및 방어적 공개를 목적으로 작성되었으며, 어떠한 보증도 없이 '있는 그대로(AS-IS)' 제공된다.
 
-1. **보증 부인:** 특정 목적 적합성, 상품성, 안전성, 제품화를 보증하지 않는다.
-2. **책임 제한:** 본 문서의 사용, 구현, 응용으로 인한 직접·간접 손해, 사고, 손실에 대해 작성자(deundeuni)는 어떠한 법적 책임도 지지 않는다.
-3. **제3자 권리 비보증:** 본 문서가 제3자의 특허, 상표, 저작권 등 권리를 침해하지 않음을 보증하지 않으며, 권리 조사는 구현자의 책임이다.
-4. **법규·안전·인증 책임:** 각 국가의 법규, 전기·소방·안전 기준, 인증 획득 및 안전 검증 책임은 전적으로 구현자에게 있다.
+1. **보증 부인 (Disclaimer of Warranties):** 특정 목적 적합성, 상품성, 무결성, 제품화 가능성 및 제3자 특허 비침해를 보증하지 않는다.
+2. **책임 제한 (Limitation of Liability):** 본 문서의 기술 개시 내용의 활용, 구현, 직접·간접 응용으로 인해 발생 가능한 직접 손해, 간접 손해, 징벌적 손해, 사고 또는 사업적 손실에 대해 작성자(deundeuni)는 법적 책임을 지지 아니한다.
+3. **고의성 부인 및 방어적 공개 선언 (Non-willful Infringement Notice):** 본 공개는 미국 특허법상 고의 침해(Willful Infringement / 35 U.S.C. §284 및 관련 판례 법리) 주장에 대한 방어적 거점을 형성하고, 공공 영역(Public Domain)에 선행기술을 명시하여 제3자의 독점적 특허 출원을 방지하기 위한 방어적 개시 조치이며, 타인의 권리를 고의로 침해하려는 의도가 없음을 명시한다.
+4. **법규·안전·인증 책임:** 각 국가별 법규, 전기·소방·소음·진동 안전 기준 준수, 인증 획득 및 현장 안전 검증 책무는 전적으로 구현자 및 사업화 주체에게 귀속된다.
 
 ---
 
-## 3.5 CWP 4대 하드웨어 연계 및 생존 아키텍처
+## 3.5 CWP 4대 하드웨어 연계 및 생존 아키텍처 (CWP 4-Hardware & System Integration)
 
 본 CWP-Entry 시스템은 단독 작동에 그치지 않고 CWP 핵심 하드웨어 메커니즘 및 상위 생존 아키텍처와 유기적으로 결합되어 무중단 생존 지향형 인프라를 형성할 수 있다.  
 **본 CWP-Entry를 포함한 CWP 4종은 단독 기술이 아니라, soma-moa Human-Centered Physical AI & Spatial Governance Protocol 및 chiplet-apu-multi-system-survival-architecture, ARCHITECTURE_STRATEGY와 함께 진입 유도부터 정렬·도킹·클램핑·연산 생존까지 하나의 생존형 통합 인프라로 설계된 일체형 시스템이다.**  
@@ -65,7 +75,7 @@ CWP-Entry는 전기차 배터리 스왑뿐만 아니라 **철도 차량, 터널 
 
 ---
 
-## 4. 도면의 간단한 설명
+## 4. 도면의 간단한 설명 및 시각화 면책
 
 * **도면 1 (FIG. 1):** CWP-Entry 자율 유도 및 정렬 시스템의 전체 등각 투영도
   * 천장 마운트 및 라인 레이저를 통한 상부 1차 유도
@@ -79,7 +89,7 @@ CWP-Entry는 전기차 배터리 스왑뿐만 아니라 **철도 차량, 터널 
 
 [CWP-Entry-BOX-TYPE-UNIFIED-DEFENSIVE-PUBLICATION.pdf](https://github.com/user-attachments/files/32428605/CWP-Entry-BOX-TYPE-UNIFIED-DEFENSIVE-PUBLICATION.pdf)
 
-
+* **주의 (AI 시각화 면책 조항):** 본 명세서의 메커니즘 개념은 작성자(deundeuni)가 독자적으로 고안했습니다. 첨부된 도면 및 개념도는 이해를 돕기 위해 범용 생성형 AI 시각화 도구를 활용하여 생성된 예시일 뿐이며, 기존 상용 제품이나 타인의 등록 특허 도면을 복제한 것이 아닙니다.
 * **도면 비고:** 본 도면의 모든 치수, 각도, 수량은 범위를 한정하지 않는 예시이다. 기능적 구조(레일/홈 가이드, 레이저 유도, 이송 연동, 대형 모빌리티 확장성)만이 본 공개의 핵심이다.
 
 ---
@@ -92,7 +102,7 @@ CWP-Entry는 전기차 배터리 스왑뿐만 아니라 **철도 차량, 터널 
 
 ---
 
-## 6. 범용 확장성, 제어 모드 및 선택 통과 구조
+## 6. 범용 확장성, 제어 모드, 선택 통과 구조 및 라이선스
 
 ### 6.1 이중 보호 및 이송 제어 모드
 본 시스템은 비상 상황 시의 차단 반응속도와 정상 상태의 이송 메커니즘을 물리적으로 구분하여 운용한다.
@@ -112,17 +122,47 @@ CWP-Entry는 전기차 배터리 스왑뿐만 아니라 **철도 차량, 터널 
 * **기존 인프라 및 플릿 연동:** 주유소, 충전소, 철도 차량기지, 지하 터널 관리 거점, 물류 파렛트 노면 이송 거점에 동일하게 배치 가능함.
 * **응용 분야 차별성에 대한 선언:** 본 시스템은 세차장 V레일의 단순 견인 방식을 넘어, 철도 궤도식 V홈 자율 센터링 및 대차 정렬 원리를 응용한 고정밀 도킹 시스템으로, 적용 분야가 다르다는 이유만으로 신규성을 부인할 수 없다.
 
+### 6.4 라이선스 및 상업적 이용 안내 (Licensing)
+
+> CERN Open Hardware Licence Version 2 - Strongly Reciprocal (CERN-OHL-S v2)  
+> Copyright (c) 2026 deundeuni  
+>  
+> This hardware design is licensed under CERN-OHL-S v2.  
+> You may manufacture and distribute it, even commercially,  
+> but if you distribute products based on it, you must also  
+> make the modified design files available under the same license.  
+>  
+> Full text: https://ohwr.org/cern_ohl_s_v2.pdf  
+>  
+> Documentation and figures: CC BY-SA 4.0  
+> https://creativecommons.org/licenses/by-sa/4.0/  
+
+* **상업적 이용 안내:** 상업적 제조/판매 모두 가능함. CWP 부분을 개선한 도면만 같은 라이선스로 공개하면 되며, 귀사의 다른 비밀 설계까지 공개할 필요는 없음.
+
 ---
 
 ## 7. 실리보호 (Practical Protection)
 
 * **원안 우선 원칙:** 본 명세서의 법적·기술적 해석은 한국어 원본(`README.ko.md`)을 최우선 기준으로 적용하며, 영문본 및 기타 언어 번역본은 참고용으로만 기능한다.
 * **범위 포괄성:** 본 문서에 기술된 레일 규격, 센서 파라미터, 진입 오차 수치, 이송 모드, 라인업은 특정 레일이나 세차장에 국한되지 않고 **돌출 레일, 매입형 가이드 홈, 무레일 휠 가이드 턱, 비구동 롤러, 광학 가이드 라인 등 모든 레일·무레일 기반 유도 이송 인프라**를 상위개념으로 포괄 적용하여 선행기술을 선점함.
-* **사업화 내용 분리:** 본 백서 원안에는 순수 오픈소스 및 선행기술 개시 내용만을 포함하며, 독자적인 수익 모델 및 사업화 세부 실행안은 별도 기술 문서로 분리 관리한다.
+* **비의도적 생략 및 예시적 미한정 고지 (Non-Intentional Omission & Non-Exhaustive Disclaimer):** 본 명세서에 인용되거나 열거된 기술 표준, 공지 원리, 법령 및 관련 규격은 이해를 돕기 위한 예시적 서술이며 전면적·고착적 한정을 의미하지 않습니다. 작성자의 주관적 한계나 인지적 착오로 인해 특정 세부 규격, 관련 산업 표준, 후속 개정안 또는 균등 선행기술의 명시가 누락되거나 누적 생략되었을 수 있으나, 이는 의도적인 은폐나 배척이 아닙니다. 개시된 상위 기술 사상과 연결되는 모든 파생 표준, 개정 규격, 균등 기구 및 공지기술 조합은 본 방어적 공개 백서의 선행기술 포괄 범주에 포함된 것으로 간주합니다.
+* **방어적 공표 및 선사용권 병행:** 본 백서는 방어적 선행기술(Prior Art) 공표를 1차 목적으로 하며, 대한민국 특허법 제103조 및 미국 특허법 35 U.S.C. §273에 따른 선사용권 확립을 위해 독자적인 설계도·시제품·개발 기록을 오프라인으로 병행 관리한다.
+* **사업화 내용 분리:** 본 백서 원안에는 Pure Open Source 및 선행기술 개시 내용만을 포함하며, 독자적인 수익 모델 및 사업화 세부 실행안은 별도 기술 문서로 분리 관리한다.
 
 ---
 
 ## 8. 출처 및 기록 (Sources & Records)
+
+* **세차장 및 궤도 이송·위치 정렬 공지기술 원리 (Foundational Entry Guidance & Conveyor Prior Art)**
+  * Car Wash V-Rail Conveyor & Chain Pusher Principles — V/U형 안내 레일 및 체인 푸셔 롤러를 이용한 모빌리티 차륜 수동 센터링 및 견인 이송 공지 기술
+  * Line Laser & Optical Alignment Guidance — 상부 라인 레이저 투영 및 광학 센서를 활용한 차체/모빌리티 정밀 진입 정렬 공지 기술
+  * US Patent US3596606A — Vehicle conveyor system for automatic car washes (V레일 가이드 및 롤러 푸셔 메커니즘)
+  * US Patent US5730061A — Automatic conveyor system with damage-free guide rails (세차장 가이드 레일 및 자동 이송 어셈블리)
+  * US Patent US9739844B2 — Guidance and alignment system and methods for electric vehicle wireless charging systems (모빌리티 센서 기반 위치 정렬 및 가이드 시스템)
+  * US Patent US9114720B2 — Vehicle positioning system for wireless charging stations (차량·모빌리티 정밀 위치 정렬 시스템)
+
+* **본 실시예의 공학적 차별점 (Specific Embodiment Feature)**
+  * 공지된 세차장 V레일 및 광학 정렬 원리를 기초로 하되, 하부 V/U레일·지면 매입 가이드 홈과 상부 라인 레이저의 결합, 3단계(Guide->Entry->V-Home) 유도 메커니즘, 0.1ms 하드웨어 인터셉트 비상 해제 및 궤도·무레일 통합 확장 라인업(SLIM/SHUTTLE/FREE)을 한정한 특정 실시예 구조에 기술적 차별성이 있음
 
 * **소마모아 생태계 저장소 및 학술 식별자 (Ecosystem Repositories & DOIs)**
   * 상위 범용 생존 아키텍처 & APU 연산 제어기 (`chiplet-apu-multi-system-survival-architecture`) — GitHub: `deundeuni / chiplet-apu-multi-system-survival-architecture` | CERN Zenodo DOI: `10.5281/zenodo.22374987` (https://doi.org/10.5281/zenodo.22374987)
@@ -133,15 +173,16 @@ CWP-Entry는 전기차 배터리 스왑뿐만 아니라 **철도 차량, 터널 
   * CWP 롤링 셀프얼라인 (`CWP-Rolling-Self-Align-Battery-Swap-System`) — CERN Zenodo DOI: `10.5281/zenodo.22373704` (https://doi.org/10.5281/zenodo.22373704)
   * 최상위 거점 관문 및 메인 저장소 (`soma-moa`) — GitHub: `deundeuni / soma-moa` | 관문 도메인: `somamoa.ai.kr`
 
-* **법적 근거 및 선사용권 규정 (Legal Statutes & Precedents)**
+* **법적 근거 및 선사용권·방어적 공개 규정 (Legal Statutes & Precedents)**
   * 대한민국 특허법 제103조 — 선사용에 의한 통상실시권
   * 미국 특허법 35 U.S.C. §273 — Defense to Infringement Based on Prior Commercial Use
+  * 방어적 개시 및 고의성 부인 규정 — 본 문서는 미국 특허법상 고의 침해(Willful Infringement / 35 U.S.C. §284 및 관련 판례 법리) 주장에 대한 사전 방어 논리를 제공하고, 공공 영역(Public Domain)에 선행기술을 명시적으로 개시하여 제3자의 독점 특허화를 방지하기 위한 방어적 공개(Defensive Publication) 목적으로 공개되었음.
 
 ---
 
 ## 부록 A. 기여 및 역할 (Inventorship & Attribution)
 
-* **deundeuni (시스템 아키텍트 및 원천 발명자):** 본 명세서에 기술된 CWP-Entry 시스템 아키텍처, V/U레일 정렬 파라미터, 철도·터널 등 대형 레일 인프라 및 무레일 지면 가이드로의 확장 메커니즘, 0.1밀리초 하드웨어 인터셉트 및 최소 개보수 구조의 총괄 기획자이자 원천 발명자 (구상 및 구조 설계).
+* **deundeuni (시스템 아키텍처 및 원천 발명자):** 본 명세서에 기술된 CWP-Entry 시스템 아키텍처, V/U레일 정렬 파라미터, 철도·터널 등 대형 레일 인프라 및 무레일 지면 가이드로의 확장 메커니즘, 0.1밀리초 하드웨어 인터셉트 및 최소 개보수 구조의 총괄 기획자이자 원천 발명자 (구상 및 구조 설계).
 * **소프트웨어 및 AI 유틸리티 활용 고지:** 본 문서 작성 과정에서 활용된 소프트웨어 및 AI 도구는 설계자가 제공한 구상과 설계 방향을 바탕으로 초안 작성, 문서 정리, 형식화 및 검토를 수행한 **수동적 실행 유틸리티(Passive Execution Utility)**에 한하며, 특정 기업명이나 모델명에 종속되지 아니하고 본 시스템의 독자적 설계 노하우, 핵심 로직 및 발명자성에는 영향을 미치지 않음.
 
 ---
