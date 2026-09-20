@@ -1,8 +1,4 @@
 
-<img width="4000" height="8238" alt="CWP-Entry_BOX_TYPE_PREVIEW_4K" src="https://github.com/user-attachments/assets/b1003f07-ba00-408d-96b0-d0667c3fd0d4" />
-
-[CWP-Entry-BOX-TYPE-UNIFIED-DEFENSIVE-PUBLICATION.pdf](https://github.com/user-attachments/files/32428605/CWP-Entry-BOX-TYPE-UNIFIED-DEFENSIVE-PUBLICATION.pdf)
-
 > **다국어 공개 안내:** 본 문서는 동일 내용의 한/영 이중 공개 문서입니다. v3.4 2026-09-13 (영문 버전: [README_EN.md](README_EN.md))  
 > **Original Authority Notice:** 본 기술 명세의 법적·공학적 판단 최상위 기준은 한글 원본(`README.ko.md`)에 귀속되며, 영문본은 보조 참조용으로만 기능한다. (PHILOSOPHY.ko.md is authoritative original)
 
