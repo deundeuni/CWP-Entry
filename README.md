@@ -75,6 +75,8 @@ The CWP-Entry system does not operate in isolation; it organically integrates wi
 * **FIG. 3**: CWP-Entry [SHUTTLE] type top view (8cm pallet, 4-point pneumatic air-lift method)
 * **FIG. 4**: CWP-Entry [FREE] type top view (built-in pallet, combined single motor, dual-stage torque sensor, hybrid laser guide method)
 
+<img width="4000" height="8238" alt="CWP-Entry_BOX_TYPE_PREVIEW_4K" src="https://github.com/user-attachments/assets/b30710f4-e03a-49ce-86e4-3c604b6fdcae" />
+
 [CWP-Entry-BOX-TYPE-UNIFIED-DEFENSIVE-PUBLICATION.pdf](https://github.com/user-attachments/files/32428619/CWP-Entry-BOX-TYPE-UNIFIED-DEFENSIVE-PUBLICATION.pdf)
 
 
